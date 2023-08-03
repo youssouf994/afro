@@ -42,7 +42,7 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/registrazione')
+@app.route('/registrazione') 
 def crea_utente():
     if request=='post':
         id=request.form['#']
