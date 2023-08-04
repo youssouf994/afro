@@ -9,7 +9,13 @@
 
     <body>
         <div class="banner">
-
+            <form action="{{ url_for('no') }}" method="post" class="login">
+                <img src="#" class="little" /><br>
+                <label for="login1" class="etichette"><b>nome utente</b><input type="text" name="user" class="credenziali1" maxlength="255"></label><br>
+                <label for="login2" class="etichette"><b>Password</b><input type="password" name="pass" class="credenziali1" maxlength="255"></label><br>
+                <button type="submit">Login</button><br />
+                <p>Vuoi l'aiuto di Salamandra?</p><a href="{{ url_for('crea_utente') }}" class="links">Registrati</a>
+            </form>
         </div>
     </body>
 
