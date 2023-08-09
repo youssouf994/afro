@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<head>
+    <title>HOLISTIC CENTER</title>
+    <!--<link rel="icon" href="{{url_for('static', filename='#')}}" type="image/x-icon" />CREARE APP ROUTE APPOSITA-->
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='templates.css') }}" />
+    <meta http-equiv="refresh" content="#">
+</head>
+
+<body>
+    <div class="banner">
+        
+    </div>
+
+    <div class="nome_cognome">
+
+    </div>
+
+    <div class="pannello">
+        <form method="post" class="data_view" action="{{ url_for('carta') }}">
+            <h2 class="titoli">Registrazione Cliente</h2>
+
+            <div class="colore">
+                <label>Carta n.</label>
+                <input type="text" name="card" required>
+            </div>
+
+            <div>
+                <button class="bottone_generic" type="submit">Inserisci<em> carta</button>
+                <button class="bottone_generic" type="reset">Cancella</button>
+            </div>
+
+        </form>
+    </div>
+
+</body>

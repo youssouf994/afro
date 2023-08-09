@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import render_template, redirect, request, url_for, g
+from flask import render_template, redirect, request, url_for, g, session
 import bcrypt
 import sqlite3
 import secrets
@@ -16,12 +16,23 @@ def db_utenti():
         db = g._database = sqlite3.connect(DATABASE)
     return db
 
-def controllo_user():
-        if 'user_id' not in session:
-            return redirect(url_for('main'))
-        user_id=session['user_id']
-        return user_id
 
+def controllo_user():
+        database_ram=db_utenti()
+        cursore=database_ram.cursor()
+
+
+
+
+def aggiunta_carta(sessione, numero):
+
+    database_ram=db_utenti()
+    cursore=database_ram.cursor()
+
+    if sessione is not None:
+        cursore.execute('UPDATE utenti SET n_cart=? WHERE id_utente=? ', (numero, sessione))
+        database_ram.commit()
+        database_ram.close()
 
 
 
@@ -67,7 +78,7 @@ def crea_utente():
 
         cursore.execute('SELECT * FROM utenti WHERE cell=?', (tel,))
         if cursore.fetchone() is not None:
-            return render_template('no.html')
+           return redirect(url_for('no'))
         else:
             #-----------CODIFICA VALORI INSERITI--------------
             pass_codificata=bcrypt.hashpw(passw.encode('utf-8'), bcrypt.gensalt())
@@ -84,33 +95,51 @@ def crea_utente():
             data.commit()
             data.close()
 
-            return redirect(url_for('index'))
+            return render_template('index.html')
 
     return render_template('registrazione.html')
 
 
 @app.route('/login', methods=['POST', 'GET'])
 def accesso():
-    if request=='POST':
-        utente=request.form['user'].encode('UTF-8')
-        passwd=requst.form['pass'].encode('UTF-8')
+    if request.method=='POST':
+        utente=request.form['user']
+        passwd=request.form['pass'].encode('UTF-8')
 
-        database_ram=sqlite3.connect('archivio_utenti.db')
+        database_ram=db_utenti()
         cursore=database_ram.cursor()
 
         cursore.execute('SELECT * FROM utenti WHERE nome=?', (utente,))
         trovato_nome=cursore.fetchone()
 
-        cursore.execute('SELECT * FROM utenti WHERE passwo=?', (passwd,))
-        trovato_ps=cursore.fetchone()
-
         database_ram.close()
+        
 
-    if ((trovato_nome is not None and bcrypt.checkpw(utente, trovato_nome[1])) and ( trovato_ps is not None and bcrypt.chekpw (passwd, trovato_ps[7] ) ) ):
-          sessione['id_utenti']=trovato_nome[0]
-          return redirect(url_for('registrazione'))
+    if trovato_nome is not None and bcrypt.checkpw(passwd, trovato_nome[7]):
+        session['id_utenti']=trovato_nome[0]
+        return render_template('login.html')
     else:
-          return redirect(url_for('index'))
+        return redirect(url_for('no'))
+
+
+@app.route('/presa_carta', methods=['POST', 'GET'])
+def carta():
+    id=session['id_utenti']
+    if request.method=='POST':
+        carta=request.form['card']
+
+        aggiunta_carta(id, carta)
+
+        return redirect(url_for('landing'))
+
+    return render_template('carta.html')
+        
+
+
+@app.route('/land')
+def landing():
+    return render_template('landing_page.html')
+
 """
     MODIFICARE IL CODICE SOTTOSTANTE PRIMA DI ESEGUIRE IL DEBUG IN PARTICOLARE IL NUMERO DELLA PORTA.
     DOVREBBE ESSERE app.run(host='0.0.0.0', port=xxxx)
