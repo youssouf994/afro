@@ -17,10 +17,10 @@ def db_utenti():
     return db
 
 
-def controllo_user():
+"""def controllo_user():
         database_ram=db_utenti()
         cursore=database_ram.cursor()
-
+"""
 
 
 
@@ -47,6 +47,25 @@ wsgi_app = app.wsgi_app
 usa la stringa sopra se usi un server http diverso da flask
 """
 
+
+@app.route('/no', methods=['POST', 'GET'])
+def no():
+    return render_template('no.html')
+
+
+@app.route('/presa_carta', methods=['POST', 'GET'])
+def carta():
+    id=session['id_utenti']
+    if request.method=='POST':
+        carta=request.form['card']
+
+        aggiunta_carta(id, carta)
+
+        return redirect(url_for('landing'))
+
+    return render_template('carta.html')
+
+
 @app.route('/')
 def index():
     """Renders a sample page."""
@@ -57,9 +76,6 @@ def index():
 def pag_registrazione():
     return render_template('registrazione.html')
 
-@app.route('/no', methods=['POST', 'GET'])
-def no():
-    return render_template('no.html')
 
 
 @app.route('/registrazione', methods=['POST', 'GET']) 
@@ -117,28 +133,24 @@ def accesso():
 
     if trovato_nome is not None and bcrypt.checkpw(passwd, trovato_nome[7]):
         session['id_utenti']=trovato_nome[0]
-        return render_template('login.html')
-    else:
-        return redirect(url_for('no'))
-
-
-@app.route('/presa_carta', methods=['POST', 'GET'])
-def carta():
-    id=session['id_utenti']
-    if request.method=='POST':
-        carta=request.form['card']
-
-        aggiunta_carta(id, carta)
-
         return redirect(url_for('landing'))
+    else:
+        return redirect(url_for('no'))        
 
-    return render_template('carta.html')
-        
 
-
-@app.route('/land')
+@app.route('/land', methods=['POST', 'GET'])
 def landing():
-    return render_template('landing_page.html')
+    db_ram=db_utenti()
+    cursore=db_ram.cursor()
+
+    cursore.execute('SELECT * FROM service')
+    corsi=cursore.fetchall()
+
+    db_ram.close()
+
+    return render_template('landing_page.html', corso_singolo=corsi)
+
+
 
 """
     MODIFICARE IL CODICE SOTTOSTANTE PRIMA DI ESEGUIRE IL DEBUG IN PARTICOLARE IL NUMERO DELLA PORTA.
