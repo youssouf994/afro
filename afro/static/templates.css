@@ -14,4 +14,16 @@
 .vetrina
 {
     color:black;
+    display:block;
+}
+
+.prodotto
+{
+    padding:4%;
+}
+
+.immag
+{
+   width:33.3%;
+    
 }

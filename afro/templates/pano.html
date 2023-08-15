@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+<head>
+    <title>HOLISTIC CENTER</title>
+    <!--<link rel="icon" href="{{url_for('static', filename='#')}}" type="image/x-icon" />CREARE APP ROUTE APPOSITA-->
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='templates.css') }}" />
+    <meta http-equiv="refresh" content="#">
+</head>
+
+<body>
+    <div class="banner">
+
+    </div>
+
+   <h2 style="color:black;">{{corso[1]}}</h2>
+
+    <div>
+        <img src="{{ corso[6] }}" class="immag"/>
+        <p>{{ corso[5] }}</p>
+
+    </div>
+    
+    <div>
+        <a href="{{url_for('carrello', id_corso=corso[0])}}">Inserisci nel carrello</a>
+
+    </div>
+    
+
+</body>

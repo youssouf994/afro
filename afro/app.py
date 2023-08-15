@@ -7,6 +7,8 @@ import secrets
 
 app = Flask(__name__)
 app.secret_key='super_secret_key'
+global id_corso_carrello
+global id_utente
 
 DATABASE = 'archivio_utenti.db'
 
@@ -35,7 +37,29 @@ def aggiunta_carta(sessione, numero):
         database_ram.close()
 
 
+def visualizza_tutti_corsi():
+    db_ram=db_utenti()
+    cursore=db_ram.cursor()
 
+    cursore.execute('SELECT * FROM service')
+    corsi=cursore.fetchall()
+
+    db_ram.close()
+
+    return corsi
+
+#-------------------------------------------------------------------------------
+
+def visualizza_un_corso(id):
+    db_ram=db_utenti()
+    cursore=db_ram.cursor()
+
+    cursore.execute('SELECT * FROM service WHERE id_service=?', (id,))
+    corsi=cursore.fetchone()
+
+    db_ram.close()
+
+    return corsi
 
 
     #------------------------------------------------------------------------
@@ -118,6 +142,7 @@ def crea_utente():
 
 @app.route('/login', methods=['POST', 'GET'])
 def accesso():
+    global id_utente
     if request.method=='POST':
         utente=request.form['user']
         passwd=request.form['pass'].encode('UTF-8')
@@ -133,6 +158,7 @@ def accesso():
 
     if trovato_nome is not None and bcrypt.checkpw(passwd, trovato_nome[7]):
         session['id_utenti']=trovato_nome[0]
+        id_utente=session['id_utenti']
         return redirect(url_for('landing'))
     else:
         return redirect(url_for('no'))        
@@ -140,16 +166,49 @@ def accesso():
 
 @app.route('/land', methods=['POST', 'GET'])
 def landing():
-    db_ram=db_utenti()
-    cursore=db_ram.cursor()
-
-    cursore.execute('SELECT * FROM service')
-    corsi=cursore.fetchall()
-
-    db_ram.close()
+    corsi=visualizza_tutti_corsi()
 
     return render_template('landing_page.html', corso_singolo=corsi)
 
+
+@app.route('/cucina_africana/<int:id_corso>')
+def panoramica(id_corso):
+    global id_corso_carrello
+    corso=visualizza_un_corso(id_corso)
+    id_corso_carrello=id_corso
+    return render_template('pano.html', corso=corso)
+
+
+@app.route('/carrello', methods=['POST', 'GET'])
+def carrello():
+    global id_corso_carrello
+    global id_utente
+
+    if 'id_utenti' in session and id_corso_carrello != None:
+        dati = db_utenti()
+        cursore = dati.cursor()
+        len=cursore.rowcount
+        if len==0:
+            cursore.execute('UPDATE carrello SET id_uten=?', (id_utente))
+            try:
+                # Inserisci il corso nel carrello dell'utente
+                cursore.execute('UPDATE carrello SET id_prodotto=?, id_uten=? WHERE id_uten', (id_corso_carrello, id_utente))
+                dati.commit()
+            except Exception as e:
+                print("Errore durante l'inserimento nel carrello:", str(e))
+                dati.rollback()
+            finally:
+                dati.close()
+
+            # Resetta le variabili globali
+            #id_corso_carrello = None
+            #id_utente = None
+
+        
+
+        return render_template('login.html')
+    else:
+        return "Errore: ID corso o ID utente mancanti."
 
 
 """

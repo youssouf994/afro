@@ -15,18 +15,18 @@
     <h2 class="header_L1">CORSI DISPONIBILI</h2>
     <div class="vetrina">
         <!--cambiare da lista a div per disporre gli elementi al meglio-->
-        <ul>
-            {% for cors in corso_singolo %}
-            <li>
-                <strong>{{ cors[1] }}</strong>
-                <strong>{{ cors[3] }}</strong>
-                {{ cors[2] }}
-                {{ cors[4] }}
-                {{ cors[5] }}
-                <a href="{{url_for('no')}}">DETTAGLI</a>
-            </li>
-            {% endfor %}
-        </ul>
+        {% for cors in corso_singolo %}
+        <div class="prodotto">
+            <div class="tit_prod"><strong>{{ cors[1] }}</strong></div>
+            <div class="prez_prod"><p>PREZZO: </p><strong>{{ cors[3] }}</strong></div>
+            <div class="mod_prd"><p>MODALITA': </p>{{ cors[2] }}</div>
+            <div class="quanti"><p>DISPONIBILITA': </p>{{ cors[4] }}</div>
+            <div class="descr"><p>DESCRRIZIONE: </p>{{ cors[5] }}</div>
+            <img src="{{ cors[6] }}" class="immag" />
+            <a href="{{url_for('panoramica', id_corso=cors[0])}}">DETTAGLI</a>
+        </div>
+        {% endfor %}
+        
 
     </div>
 </body>

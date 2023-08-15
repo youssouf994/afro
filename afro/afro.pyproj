@@ -33,11 +33,17 @@
     <Content Include="requirements.txt" />
     <Content Include="static\templates.css" />
     <Content Include="static\WhatsApp Image 2023-06-29 at 8.48.40 PM.jpeg" />
+    <Content Include="templates\carrello.html">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="templates\carta.html" />
     <Content Include="templates\index.html" />
     <Content Include="templates\landing_page.html" />
     <Content Include="templates\login.html" />
     <Content Include="templates\no.html" />
+    <Content Include="templates\pano.html">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="templates\registrazione.html" />
     <Content Include="TextFile1.txt" />
   </ItemGroup>
