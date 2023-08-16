@@ -183,28 +183,34 @@ def panoramica(id_corso):
 def carrello():
     global id_corso_carrello
     global id_utente
+    
+    if request.method=='POST':
+        quant=request.form['quanti']
+
 
     if 'id_utenti' in session and id_corso_carrello != None:
         dati = db_utenti()
         cursore = dati.cursor()
-        len=cursore.rowcount
-        if len==0:
-            cursore.execute('UPDATE carrello SET id_uten=?', (id_utente))
-            try:
-                # Inserisci il corso nel carrello dell'utente
-                cursore.execute('UPDATE carrello SET id_prodotto=?, id_uten=? WHERE id_uten', (id_corso_carrello, id_utente))
-                dati.commit()
-            except Exception as e:
-                print("Errore durante l'inserimento nel carrello:", str(e))
-                dati.rollback()
-            finally:
-                dati.close()
+        try:
+            #prendi il oprezzo dalla tabella corsi
+            cursore.execute('SELECT prezzo FROM service WHERE id_service=?', (id_corso_carrello,))
+            prezzo=cursore.fetchone()[0]
+            
 
-            # Resetta le variabili globali
-            #id_corso_carrello = None
-            #id_utente = None
+            #Inserisci il corso e i dati nel carrello dell'utente
+            cursore.execute('INSERT INTO carrello (id_prodotto, id_uten, quantita, prezzo_unitario) VALUES (?, ?, ?, ?) ', (id_corso_carrello, id_utente, quant, prezzo,))
+            dati.commit()
 
-        
+        except Exception as e:
+            print("Errore durante l'inserimento nel carrello:", str(e))
+            dati.rollback()
+        finally:
+            dati.close()
+
+
+        # Resetta le variabili globali
+        #id_corso_carrello = None
+        #id_utente = None
 
         return render_template('login.html')
     else:

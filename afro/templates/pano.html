@@ -21,8 +21,12 @@
     </div>
     
     <div>
-        <a href="{{url_for('carrello', id_corso=corso[0])}}">Inserisci nel carrello</a>
-
+        
+        <form action={{url_for('carrello', id_corso=corso[0])}} method="post">
+            <input type="number" name="quanti" />
+            <button type="submit">Inserisci nel carrello</button>
+        </form>
+        
     </div>
     
 
