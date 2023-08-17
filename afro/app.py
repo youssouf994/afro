@@ -65,6 +65,51 @@ def visualizza_un_corso(id):
     #------------------------------------------------------------------------
 
 
+def elimina_riga(db_ram, id, tabella, colonna):
+    """la funzione non apre il database perchè verrebbe già aperto dalla funzione
+    db_utenti, quindi passo l'oggetto come parametro e lo utilizzo direttamente"""
+    
+    try:
+        cursore=db_ram.cursor()
+
+        cursore.execute(f"DELETE FROM {tabella} WHERE {colonna}=?", (id,))
+        db_ram.commit()
+        
+        return True
+
+    except Exception as e:
+        return render_template("no.html")
+
+
+#----------------------------------------------------------------------------
+
+def modifica_elemento(db_ram, id, tabella, colonna, nuovo):
+    try:
+        cursore=db_ram.cursor()
+
+        cursore.execute(f"UPDATE FROM {tabella} SET {colonna}=?, WHERE {id}=?", (nuovo, id))
+        db_ram.commit()
+        
+        return True
+
+    except Exception as e:
+        return render_template("no.html")
+
+#------------------------------------------------------------------------------
+
+def aggiungi_corso(db_ram, tabella, nome, mod, prezzo, descrizione ):
+    try:
+        cursore=db_ram.cursor()
+
+        cursore.execute(f"INSERT INTO {tabella} (nome, modalit, prezzo, stock, descrizione) VALUES (?, ?, ?, ?, ?)", (nome, mod, prezzo, descrizione))
+        db_ram.commit()
+        
+        return True
+
+    except Exception as e:
+        return render_template("no.html")
+
+
 """
 wsgi_app = app.wsgi_app
 
