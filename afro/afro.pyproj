@@ -37,6 +37,9 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="templates\carta.html" />
+    <Content Include="templates\dash_creators.html">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="templates\index.html" />
     <Content Include="templates\landing_page.html" />
     <Content Include="templates\login.html" />

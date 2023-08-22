@@ -10,6 +10,7 @@ app.secret_key='super_secret_key'
 global id_corso_carrello
 global id_utente
 
+
 DATABASE = 'archivio_utenti.db'
 
 def db_utenti():
@@ -18,13 +19,14 @@ def db_utenti():
         db = g._database = sqlite3.connect(DATABASE)
     return db
 
+#------------------------------------------------------------------------------
 
 """def controllo_user():
         database_ram=db_utenti()
         cursore=database_ram.cursor()
 """
 
-
+#-----------------------------------------------------------------------------
 
 def aggiunta_carta(sessione, numero):
 
@@ -35,6 +37,8 @@ def aggiunta_carta(sessione, numero):
         cursore.execute('UPDATE utenti SET n_cart=? WHERE id_utente=? ', (numero, sessione))
         database_ram.commit()
         database_ram.close()
+
+#-------------------------------------------------------------------------------
 
 
 def visualizza_tutti_corsi():
@@ -62,17 +66,17 @@ def visualizza_un_corso(id):
     return corsi
 
 
-    #------------------------------------------------------------------------
+#------------------------------------------------------------------------
 
 
-def elimina_riga(db_ram, id, tabella, colonna):
+def elimina_riga(db_ram, id, tabella):
     """la funzione non apre il database perchè verrebbe già aperto dalla funzione
     db_utenti, quindi passo l'oggetto come parametro e lo utilizzo direttamente"""
     
     try:
         cursore=db_ram.cursor()
 
-        cursore.execute(f"DELETE FROM {tabella} WHERE {colonna}=?", (id,))
+        cursore.execute(f"DELETE FROM {tabella} WHERE id_service=?", (id,))
         db_ram.commit()
         
         return True
@@ -87,27 +91,42 @@ def modifica_elemento(db_ram, id, tabella, colonna, nuovo):
     try:
         cursore=db_ram.cursor()
 
-        cursore.execute(f"UPDATE FROM {tabella} SET {colonna}=?, WHERE {id}=?", (nuovo, id))
+        cursore.execute(f"UPDATE {tabella} SET {colonna}=? WHERE id_service=?", (nuovo, id))
         db_ram.commit()
         
-        return True
+        a=1
+        return a
 
     except Exception as e:
         return render_template("no.html")
 
-#------------------------------------------------------------------------------
+#----------------------------------------------------------------------------
 
-def aggiungi_corso(db_ram, tabella, nome, mod, prezzo, descrizione ):
+
+def aggiungi_corso(db_ram, tabella, nome, mod, prezzo, quanti, descrizione, immag ):
     try:
         cursore=db_ram.cursor()
 
-        cursore.execute(f"INSERT INTO {tabella} (nome, modalit, prezzo, stock, descrizione) VALUES (?, ?, ?, ?, ?)", (nome, mod, prezzo, descrizione))
+        cursore.execute(f"INSERT INTO {tabella} (nome, modalit, prezzo, stock, descrizione, img) VALUES (?, ?, ?, ?, ?, ?)", (nome, mod, prezzo, quanti, descrizione, immag ))
         db_ram.commit()
         
         return True
 
     except Exception as e:
         return render_template("no.html")
+
+
+#---------------------------------------------------------------------------------
+
+def cerca_corso(db, rif):
+    
+    cursore=db.cursor()
+
+    cursore.execute("SELECT * FROM service WHERE id=?", (rif,))
+    trovato=cursor.fetchone()
+    
+
+    return rif
 
 
 """
@@ -116,6 +135,13 @@ wsgi_app = app.wsgi_app
 usa la stringa sopra se usi un server http diverso da flask
 """
 
+
+#------------------------------------------------------------------------------
+#--------------------------------------FLASK------------------------------------
+#------------------------------------------------------------------------------
+#--------------------------------------\--/------------------------------------
+#---------------------------------------\/------------------------------------
+#-----------------------------------------------------------------------------|
 
 @app.route('/no', methods=['POST', 'GET'])
 def no():
@@ -200,11 +226,23 @@ def accesso():
 
         database_ram.close()
         
+        creator=trovato_nome[1]
+        creator=creator[:5]
+        numero="ad458"
+        print(creator,"   ",numero)
 
-    if trovato_nome is not None and bcrypt.checkpw(passwd, trovato_nome[7]):
+
+    if ((trovato_nome is not None and bcrypt.checkpw(passwd, trovato_nome[7]) and
+          (creator==numero))):
+        session['id_utente']=trovato_nome[0]
+        id_utente=session['id_utente']
+        return redirect(url_for('dashboard_creators'))
+
+    elif trovato_nome is not None and bcrypt.checkpw(passwd, trovato_nome[7]):
         session['id_utenti']=trovato_nome[0]
         id_utente=session['id_utenti']
         return redirect(url_for('landing'))
+           
     else:
         return redirect(url_for('no'))        
 
@@ -261,6 +299,105 @@ def carrello():
     else:
         return "Errore: ID corso o ID utente mancanti."
 
+
+@app.route('/nuovo', methods=['POST', 'GET'])
+def nuovo_corso():
+    if request.method=='POST':
+        tabe="service"
+        nom=request.form['nome']
+        modal=request.form['dalit']
+        soldi=request.form['prez']
+        descri=request.form['descr']
+        in_vendita=request.form['num']
+        immagine=request.form['img']
+
+        soldi=float(soldi)
+
+        db=db_utenti()
+
+        aggiungi_corso(db, tabe, nom, modal, soldi, in_vendita, descri, immagine)
+
+
+        db.close()
+
+        return render_template('dash_creators.html')
+
+
+@app.route('/pano_creators', methods=['POST', 'GET'])
+def visualizza_creators():
+    corsi=visualizza_tutti_corsi()
+    return render_template('dash_creators.html', corsi=corsi)
+
+
+@app.route('/modifica', methods=['POST'])
+def mod_corso():
+    if session is not None:
+        valore=request.form.getlist('cod')
+        selezionato=request.form['quale']
+        modificato=request.form['nuovo']
+
+        db=db_utenti()
+        try:
+            if 'co' in valore:
+                a=modifica_elemento(db, selezionato, 'service', 'nome', modificato)
+
+
+            elif 'mod' in valore:
+                modifica_elemento(db, selezionato, "service", "modalit", modificato)
+
+            elif 'prez' in valore:
+                modificato=float(modificato)
+                modifica_elemento(db, selezionato, "service", "prezzo", modificato)
+
+            elif 'quanti' in valore:
+                modificato=int(modificato)
+                modifica_elemento(db, selezionato, "service", "stock", modificato)
+
+            elif 'desc' in valore:
+                modifica_elemento(db, selezionato, "service", "descrizione", modificato)
+
+            elif 'imge' in valore:
+                modifica_elemento(db, selezionato, "service", "img", modificato)
+
+        except Exception as e:
+            return redirect(url_for('no'))
+
+        finally:
+            db.close()
+    
+    
+        return render_template('dash_creators.html')
+    
+    else:
+        return render_template('no.html')
+
+
+@app.route('/elimina', methods=['POST'])
+def elimina():
+    if session is not None:
+        quale=request.form['elimino']
+        db=db_utenti()
+
+        try:
+            elimina_riga(db, quale, "service")
+
+        except Exception as e:
+            return redirect(url_for('no'))
+
+        finally:
+            db.close()
+
+        return render_template('dash_creators.html')
+    
+    else:
+        return redirect(url_for('no'))
+
+
+@app.route('/creators', methods=['POST', 'GET'])
+def dashboard_creators():
+    if request.method=='POST':
+        return render_template('dash_creators.html')
+    return render_template('dash_creators.html')
 
 """
     MODIFICARE IL CODICE SOTTOSTANTE PRIMA DI ESEGUIRE IL DEBUG IN PARTICOLARE IL NUMERO DELLA PORTA.
