@@ -14,14 +14,19 @@
     </div>
 
     <div class="pannello">
+
+        {% for acquistati in acquistati %}
+        <div>
+            <p><strong>Corso: </strong>{{ acquistati[5] }} <strong>Quantita': </strong>{{acquistati[3]}} <strong>Prezzo: </strong>{{acquistati[4]}}</p><a href="{{"
+        </div>
+        {% endfor %}
+        <p><strong>Subtotale: {{tot}}</strong></p>
+
         <form action="{{ url_for('carrello') }}" method="post" class="pannello2">
             <img src="#" class="little" /><br>
             <button type="submit">Inserisci nel carrello</button><br />
         </form>
 
-<!--        <form action="" method="post" class="pannello2">
-            <img src="#" class="little" /><br>
-            <button type="submit">Compra</button><br />-->
-        </form>
+
     </div>
 </body>

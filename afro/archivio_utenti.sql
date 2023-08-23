@@ -31,26 +31,25 @@ CREATE TABLE carrello (
     id_prodotto INTEGER,
     quantita INTEGER,
     prezzo_unitario REAL,
-    FOREIGN KEY (id_uten) REFERENCES utenti(id_utente),
-    FOREIGN KEY (id_prodotto) REFERENCES prodotti(id_service)
+    nome_prodotto TEXT
 );
 
 
 INSERT INTO service (nome, modalit, prezzo, stock, descrizione, img)
-VALUES ('Prodotto 1', 'in presenza', '50,00', 49, 'Descrizione lalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalala', 'https://raw.githubusercontent.com/youssouf994/afro/master/afro/static/1.webp');
+VALUES ('Prodotto 1', 'in presenza', '50.00', 49, 'Descrizione lalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalala', 'https://raw.githubusercontent.com/youssouf994/afro/master/afro/static/1.webp');
 
 INSERT INTO service (nome, modalit, prezzo, stock, descrizione, img)
-VALUES ('Prodotto 2', 'in presenza', '50,00', 49, 'Descrizione lalalalalalalalalalalalalalalalalalalalalalalalalalalalalaladewr1jfberjf ewdiofnew dfnnew cdokknf dkofnwew  alala', 'https://raw.githubusercontent.com/youssouf994/afro/master/afro/static/2.webp');
+VALUES ('Prodotto 2', 'in presenza', '50.00', 49, 'Descrizione lalalalalalalalalalalalalalalalalalalalalalalalalalalalalaladewr1jfberjf ewdiofnew dfnnew cdokknf dkofnwew  alala', 'https://raw.githubusercontent.com/youssouf994/afro/master/afro/static/2.webp');
 
 INSERT INTO service (nome, modalit, prezzo, stock, descrizione, img)
-VALUES ('Prodotto 3', 'in presenza', '50,00', 49, 'Descrizione lalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalala', 'https://raw.githubusercontent.com/youssouf994/afro/master/afro/static/3.webp');
+VALUES ('Prodotto 3', 'in presenza', '50.00', 49, 'Descrizione lalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalala', 'https://raw.githubusercontent.com/youssouf994/afro/master/afro/static/3.webp');
 
 INSERT INTO service (nome, modalit, prezzo, stock, descrizione, img)
-VALUES ('Prodotto 4', 'in presenza', '50,00', 49, 'Descrizione lalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalala', 'https://raw.githubusercontent.com/youssouf994/afro/master/afro/static/4.webp');
+VALUES ('Prodotto 4', 'in presenza', '50.00', 49, 'Descrizione lalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalala', 'https://raw.githubusercontent.com/youssouf994/afro/master/afro/static/4.webp');
 
 INSERT INTO service (nome, modalit, prezzo, stock, descrizione, img)
-VALUES ('Prodotto 5', 'in presenza', '50,00', 49, 'Descrizione lalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalala', 'https://raw.githubusercontent.com/youssouf994/afro/master/afro/static/5.webp');
+VALUES ('Prodotto 5', 'in presenza', '50.00', 49, 'Descrizione lalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalala', 'https://raw.githubusercontent.com/youssouf994/afro/master/afro/static/5.webp');
 
 INSERT INTO service (nome, modalit, prezzo, stock, descrizione, img)
-VALUES ('Prodotto 6', 'in presenza', '50,00', 49, 'Descrizione lalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalala', 'https://photos.google.com/photo/AF1QipM9zwCs75RFakfhXqZjs7XatgujwWvdzKj0L71z');
+VALUES ('Prodotto 6', 'in presenza', '50.00', 49, 'Descrizione lalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalala', 'https://photos.google.com/photo/AF1QipM9zwCs75RFakfhXqZjs7XatgujwWvdzKj0L71z');
     

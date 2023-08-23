@@ -129,6 +129,19 @@ def cerca_corso(db, rif):
     return rif
 
 
+#---------------------------------------------------------------------------------
+
+def visualizza_carrello(db_ram, id, tabella):
+    cursore=db_ram.cursor()
+
+    cursore.execute(f"SELECT * FROM {tabella} WHERE id_uten={id}")
+    carrello=cursore.fetchall()
+
+    return carrello
+
+
+#---------------------------------------------------------------------------------------
+
 """
 wsgi_app = app.wsgi_app
 
@@ -214,6 +227,7 @@ def crea_utente():
 @app.route('/login', methods=['POST', 'GET'])
 def accesso():
     global id_utente
+    trovato_nome=None
     if request.method=='POST':
         utente=request.form['user']
         passwd=request.form['pass'].encode('UTF-8')
@@ -236,14 +250,17 @@ def accesso():
           (creator==numero))):
         session['id_utente']=trovato_nome[0]
         id_utente=session['id_utente']
+        #trovato_nome=None
         return redirect(url_for('dashboard_creators'))
 
     elif trovato_nome is not None and bcrypt.checkpw(passwd, trovato_nome[7]):
         session['id_utenti']=trovato_nome[0]
         id_utente=session['id_utenti']
+        #trovato_nome=None
         return redirect(url_for('landing'))
            
     else:
+        trovato_nome=None
         return redirect(url_for('no'))        
 
 
@@ -262,6 +279,22 @@ def panoramica(id_corso):
     return render_template('pano.html', corso=corso)
 
 
+@app.route('/carrello2', methods=['POST', 'GET'])
+def vis_carrello():
+    id=id_utente
+    tabella="carrello"
+    db=db_utenti()
+    acquistati=visualizza_carrello(db, id, tabella)
+
+    if id is not None:
+
+        tot=0
+        for acquisto in acquistati:
+            tot+=float(acquisto[4])
+
+    return render_template("carrello.html", acquistati=acquistati, tot=tot)
+
+
 @app.route('/carrello', methods=['POST', 'GET'])
 def carrello():
     global id_corso_carrello
@@ -275,13 +308,18 @@ def carrello():
         dati = db_utenti()
         cursore = dati.cursor()
         try:
-            #prendi il oprezzo dalla tabella corsi
+            #prendo il oprezzo dalla tabella corsi
             cursore.execute('SELECT prezzo FROM service WHERE id_service=?', (id_corso_carrello,))
-            prezzo=cursore.fetchone()[0]
-            
+            prezzo=cursore.fetchone()[0]#CURSORE NON è NE UNA LISTA NE UNA TUPLA FACENDO FETCHONE HA UN UNICO VALORE SE AUMENTI L'INDICE < 0 VAI OUT OF RANGE 
+            float(prezzo)
+            prezzo*=float(quant)
 
-            #Inserisci il corso e i dati nel carrello dell'utente
-            cursore.execute('INSERT INTO carrello (id_prodotto, id_uten, quantita, prezzo_unitario) VALUES (?, ?, ?, ?) ', (id_corso_carrello, id_utente, quant, prezzo,))
+            #prendo il nome del corso dalla tab corsi
+            cursore.execute('SELECT nome FROM service WHERE id_service=?', (id_corso_carrello,))
+            nome_corso=cursore.fetchone()[0]#CURSORE NON è NE UNA LISTA NE UNA TUPLA FACENDO FETCHONE HA UN UNICO VALORE SE AUMENTI L'INDICE < 0 VAI OUT OF RANGE
+
+            #Inserisco il corso e i dati nel carrello dell'utente
+            cursore.execute('INSERT INTO carrello (id_prodotto, id_uten, quantita, prezzo_unitario, nome_prodotto) VALUES (?, ?, ?, ?, ?) ', (id_corso_carrello, id_utente, quant, prezzo, nome_corso,))
             dati.commit()
 
         except Exception as e:
@@ -291,13 +329,16 @@ def carrello():
             dati.close()
 
 
-        # Resetta le variabili globali
-        #id_corso_carrello = None
-        #id_utente = None
+        #resetta le variabili globali
+        id_corso_carrello = None
+        
 
-        return render_template('login.html')
+        return redirect(url_for('vis_carrello'))
     else:
         return "Errore: ID corso o ID utente mancanti."
+
+
+
 
 
 @app.route('/nuovo', methods=['POST', 'GET'])
@@ -374,8 +415,9 @@ def mod_corso():
 
 @app.route('/elimina', methods=['POST'])
 def elimina():
-    if session is not None:
-        quale=request.form['elimino']
+    quale=request.form['elimino']
+
+    if session is not None:    
         db=db_utenti()
 
         try:
