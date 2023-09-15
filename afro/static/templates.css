@@ -1,11 +1,49 @@
 
-
-.banner {
-    width: 100%;
-    height: 10%;
-    background-color: #778a43;
+.body 
+{
+    background-image: url("base homepage.webp");
+    background-size:cover;
 }
 
+.img
+{
+    width:50%;
+    height:20%;
+}
+
+.img2
+{
+    width:20%;
+    height:5%;
+}
+
+.pannello_home
+{
+    width:80%;
+    height:65%;
+    margin:auto;
+    display:block;
+}
+.banner {
+    position:relative;
+    width: 100%;
+    height: 20%;
+    display:flex;
+    flex-direction:row;
+    padding:1.5%, 0%;
+    align-items:center;
+}
+
+.link 
+{
+    position: relative;
+    text-decoration: none;
+    color: white;
+    font-size: 150%;
+    text-align: center;
+    margin: auto;
+    width: 100%;
+}
 .login
 {
     margin:auto;

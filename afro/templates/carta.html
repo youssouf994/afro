@@ -4,12 +4,18 @@
     <title>HOLISTIC CENTER</title>
     <!--<link rel="icon" href="{{url_for('static', filename='#')}}" type="image/x-icon" />CREARE APP ROUTE APPOSITA-->
     <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='templates.css') }}" />
-    <meta http-equiv="refresh" content="#">
+    <meta http-equiv="refresh" content="2">
 </head>
 
 <body>
     <div class="banner">
-        
+        <a href="{{url_for('index')}}"><img src="#" /></a>
+        <a href="{{url_for('landing')}}">CORSI</a>
+        <a href="{{url_for('landing')}}">ACQUISTA</a>
+        <a href="{{url_for('carrello')}}"><img src="#" /> <!--var jinja con tot preferiti--></a>
+        <a href="{{url_for('carrello')}}"><img src="#" /> <!--var jinja con tot carrello--></a>
+        <a href="{{url_for('pag_login')}}">O LOGIN </a>
+        <a href="{{url_for('pag_registrazione')}}">+ SIGN UP</a>
     </div>
 
     <div class="nome_cognome">

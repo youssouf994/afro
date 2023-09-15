@@ -9,7 +9,13 @@
 
 <body>
     <div class="banner">
-
+        <a href="{{url_for('index')}}"><img src="#" /></a>
+        <a href="{{url_for('landing')}}">CORSI</a>
+        <a href="{{url_for('landing')}}">ACQUISTA</a>
+        <a href="{{url_for('carrello')}}"><img src="#" /> <!--var jinja con tot preferiti--></a>
+        <a href="{{url_for('carrello')}}"><img src="#" /> <!--var jinja con tot carrello--></a>
+        <a href="{{url_for('pag_login')}}">O LOGIN </a>
+        <a href="{{url_for('pag_registrazione')}}">+ SIGN UP</a>
     </div>
 
    <h2 style="color:black;">{{corso[1]}}</h2>

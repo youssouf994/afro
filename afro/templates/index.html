@@ -1,25 +1,26 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <head>
     <title>HOLISTIC CENTER</title>
     <!--<link rel="icon" href="{{url_for('static', filename='#')}}" type="image/x-icon" />CREARE APP ROUTE APPOSITA-->
     <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='templates.css') }}" />
-    <meta http-equiv="refresh" content="#">
+    <meta http-equiv="refresh" content="2">
 </head>
 
-<body>
-    <div class="banner">
+<body class="body" style="font-family: Regular.otf;">>
+    <header class="banner">
+        <a href="{{url_for('index')}}" class="link"><img src="{{url_for('static', filename='logo intero.png')}}" alt="Logo1" class="img" /></a>
+        <a href="{{url_for('landing')}}" class="link">CORSI</a>
+        <!--FARE FUNZIONE E VALORE IN DB PER PREFERITI--><a href="{{url_for('landing')}}" class="link"><img src="{{url_for('static', filename='preferito selezionato.png')}}" alt="preferiti" class="img2" /></a>
+        <a href="{{url_for('carrello')}}" class="link"><img src="{{url_for('static', filename='cart in corso.png')}}" alt="carrello" class="img2" /> <!--var jinja con tot preferiti--></a>
+        <a href="{{url_for('accesso')}}" class="link">LOGIN</a> 
+        <a href="{{url_for('pag_registrazione')}}" class="link">+ SIGN UP</a>
+    </header>
 
-    </div>
+    <div class="pannello_home">
+        <img src="{{url_for('static', filename='logo intero.png')}}" alt="Logo1" class="img_centro" />
+        <p>Lorem Ipsum   un testo segnaposto utilizzato nel settore della tipografia e della stampa. Lorem Ipsum   considerato il testo segnaposto standard sin dal sedicesimo secolo, quando un anonimo tipografo prese una cassetta di caratteri e li assembl  per preparare un testo campione.   sopravvissuto non solo a pi  di cinque secoli, ma anche al passaggio alla videoimpaginazione, pervenendoci sostanzialmente inalterato. Fu reso popolare, negli anni  60, con la diffusione dei fogli di caratteri trasferibili  Letraset , che contenevano passaggi del Lorem Ipsum, e pi  recentemente da software di impaginazione come Aldus PageMaker, che includeva versioni del Lorem Ipsum.</p>
 
-    <div class="pannello">
-        <form action="{{ url_for('accesso') }}" method="post" class="login">
-            <img src="#" class="little" /><br>
-            <label for="login1" class="etichette"><b>nome utente</b><input type="text" name="user" class="credenziali1" maxlength="255"></label><br>
-            <label for="login2" class="etichette"><b>Password</b><input type="password" name="pass" class="credenziali1" maxlength="255"></label><br>
-            <button type="submit">Login</button><br />
-            <p>Vuoi l'aiuto di Salamandra?</p><a href="{{ url_for('crea_utente') }}" class="links">Registrati</a>
-        </form>
     </div>
 </body>
 
