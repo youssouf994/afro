@@ -68,7 +68,7 @@
 
     <h2 class="header_L1">CORSI DISPONIBILI</h2>
     <div class="vetrina">
-        <button id="indietro"><img src="{{url_for('static', filename='precedente.png')}}"/> /></button>
+        <img src="{{url_for('static', filename='precedente.png')}}" class="indietro" />
         <div class="vetrina_figlio">
             {% for cors in corso_singolo %}
             <div class="prodotto">
@@ -83,7 +83,7 @@
             </div>
             {% endfor %}
         </div>
-        <button id="avanti"><img src="{{url_for('static', filename='prossimo.png')}}"/> /></button>
+        <img src="{{url_for('static', filename='prossimo.png')}}" class="avanti" />
             
         
         

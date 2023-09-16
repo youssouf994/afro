@@ -19,13 +19,14 @@
 .img
 {
     width:50%;
-    height:20%;
+    height:18%;
+    margin-bottom:-5%;
 }
 
 .img2
 {
-    width:20%;
-    height:5%;
+    width:10%;
+    height:2.5%;
 }
 
 .pannello_home {
@@ -59,6 +60,7 @@
     flex-direction:row;
     padding:1.5%, 0%;
     align-items:center;
+    color:orange;
 }
 
 .link 
@@ -70,6 +72,7 @@
     text-align: center;
     margin: auto;
     width: 100%;
+    cursor:pointer;
 }
 .login
 {
@@ -121,6 +124,7 @@
 {
     position:absolute;
     transform:translateY(-50%);
+    cursor:pointer;
 }
 .avanti
 {
@@ -140,4 +144,28 @@
 .stacco
 {
     background-color:aliceblue;
+}
+
+.popup
+{
+    display:none;
+    position:relative;
+    margin:0 auto;
+    margin-top:-15%;
+    width:90%;
+    height:85%;
+    background-color:azure;
+    z-index:9999;
+}
+
+.log
+{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    background-color:aliceblue;
+    padding:2%;
+    border-radius:5%;
+    box-shadow:0px 0px 10px rgba(0, 0, 0, 0.3);
 }

@@ -286,18 +286,22 @@ def panoramica(id_corso):
 
 @app.route('/carrello2', methods=['POST', 'GET'])
 def vis_carrello():
-    id=id_utente
-    tabella="carrello"
-    db=db_utenti()
-    acquistati=visualizza_carrello(db, id, tabella)
+    if 'id_utente' not in globals():
+        msg="Prima effettuare il login"
 
-    if id is not None:
+        return render_template("index.html", msg=msg)
 
+    else:
+        id=id_utente
+        tabella="carrello"
+        db=db_utenti()
+        acquistati=visualizza_carrello(db, id, tabella)
         tot=0
         for acquisto in acquistati:
             tot+=float(acquisto[4])
 
-    return render_template("carrello.html", acquistati=acquistati, tot=tot)
+        return render_template("carrello.html", acquistati=acquistati, tot=tot)
+
 
 
 @app.route('/carrello', methods=['POST', 'GET'])
@@ -445,6 +449,20 @@ def dashboard_creators():
     if request.method=='POST':
         return render_template('dash_creators.html')
     return render_template('dash_creators.html')
+
+
+@app.route('/elimina_riga', methods=['GET'])
+def elimina_riga():
+    id77 = request.args.get('id77')
+    if id77:
+        # Ora hai l'ID da eliminare, puoi eseguire una query di eliminazione
+        db_ram = db_utenti()
+        cursor = db_ram.cursor()
+        cursor.execute("DELETE FROM carrello WHERE id = ?", (id77,))
+        db_ram.commit()
+        db_ram.close()
+
+    return redirect(url_for('vis_carrello'))
 
 """
     MODIFICARE IL CODICE SOTTOSTANTE PRIMA DI ESEGUIRE IL DEBUG IN PARTICOLARE IL NUMERO DELLA PORTA.
