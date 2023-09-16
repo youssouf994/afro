@@ -76,13 +76,13 @@
             });
 
             $(document).on("click", function (event) {
-                if (!$(event.target).closest("#comparsa").length) {
+                if (!$(event.target).closest("#comparsa, #login_div").length) {
                     $("#login_div").hide();
                 }
             });
 
             $(document).on("click", function (event) {
-                if (!$(event.target).closest("#comparsa2").length) {
+                if (!$(event.target).closest("#comparsa2, #login_div2").length) {
                     $("#login_div2").hide();
                 }
             });
