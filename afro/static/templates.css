@@ -1,8 +1,19 @@
 
+.*
+{
+    font-family:Regular.otf;
+}
+
 .body 
 {
     background-image: url("base homepage.webp");
-    background-size:cover;
+    background-size:auto;
+    color: orange;
+    display:flex;
+    flex-direction:column;
+    width:100%;
+    justify-content: center;
+    align-items: center;
 }
 
 .img
@@ -17,13 +28,29 @@
     height:5%;
 }
 
-.pannello_home
-{
-    width:80%;
-    height:65%;
-    margin:auto;
-    display:block;
+.pannello_home {
+    width: 80%;
+    height: 65%;
+    margin: auto;
+    text-align:center;
+    margin-top:5%;
+    margin-bottom:5%;
 }
+
+.img_centro
+{
+    width:70%;
+    height:55%;
+    display:block;
+    margin:0 auto;
+}
+
+.testo
+{
+    text-align:justify;
+    margin-top:5%;
+}
+
 .banner {
     position:relative;
     width: 100%;
@@ -49,19 +76,68 @@
     margin:auto;
 }
 
+.precedente,
+.prossimo
+{
+    margin:2%;
+    width:15%;
+    height:15%;
+}
 .vetrina
 {
-    color:black;
-    display:block;
+   width:98%;
+   height:86.6%;
+   margin:auto; 
+   position:relative;
+   overflow:hidden;
+   display:inline-flex;
+   align-items:center;
+   justify-content:center;
+   
+}
+
+.vetrina_figlio
+{
+    display:flex;
+    flex-wrap:nowrap;
+    overflow-x:auto;
+    scroll-behavior:smooth;
+    width:100%;
+    height:100%;
 }
 
 .prodotto
 {
     padding:4%;
+    width:86%;
+    height:86%;
+    margin:auto;
+    text-align:center;
+    
 }
 
+.avanti,
+.indietro
+{
+    position:absolute;
+    transform:translateY(-50%);
+}
+.avanti
+{
+    right:0;
+}
+
+.indietro
+{
+    left:0;
+}
 .immag
 {
-   width:33.3%;
+   width:66%;
     
+}
+
+.stacco
+{
+    background-color:aliceblue;
 }

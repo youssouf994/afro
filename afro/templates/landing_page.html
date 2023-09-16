@@ -4,33 +4,88 @@
     <title>HOLISTIC CENTER</title>
     <!--<link rel="icon" href="{{url_for('static', filename='#')}}" type="image/x-icon" />CREARE APP ROUTE APPOSITA-->
     <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='templates.css') }}" />
-    <meta http-equiv="refresh" content="2">
+    <meta http-equiv="refresh" content="#">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            const panoramicaContainer = $(".panoramica-container");
+            const panoramica = $(".panoramica");
+            const prevButton = $("#indietro");
+            const nextButton = $("#avanti");
+
+            const itemWidth = 300; // Larghezza di un elemento "prodotto"
+            const itemsPerPage = 4; // Numero di elementi da mostrare per pagina
+            let currentPage = 1;
+
+            function showPage(page) {
+                const startIndex = (page - 1) * itemsPerPage;
+                const endIndex = startIndex + itemsPerPage;
+
+                const prodotti = $(".prodotto");
+
+                prodotti.each(function (index, element) {
+                    if (index >= startIndex && index < endIndex) {
+                        $(element).show();
+                    } else {
+                        $(element).hide();
+                    }
+                });
+            }
+
+            prevButton.on("click", function () {
+                if (currentPage > 1) {
+                    currentPage--;
+                    showPage(currentPage);
+                }
+            });
+
+            nextButton.on("click", function () {
+                const prodotti = $(".prodotto");
+                const totalItems = prodotti.length;
+                const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    showPage(currentPage);
+                }
+            });
+
+            showPage(currentPage);
+        });
+    </script>
 </head>
 
-<body>
+<body class="body">
     <header class="banner">
         <a href="{{url_for('index')}}" class="link"><img src="{{url_for('static', filename='logo intero.png')}}" alt="Logo1" class="img" /></a>
         <a href="{{url_for('landing')}}" class="link">CORSI</a>
         <!--FARE FUNZIONE E VALORE IN DB PER PREFERITI--><a href="{{url_for('landing')}}" class="link"><img src="{{url_for('static', filename='preferito selezionato.png')}}" alt="preferiti" class="img2" /></a>
-        <a href="{{url_for('carrello')}}" class="link"><img src="{{url_for('static', filename='cart in corso.png')}}" alt="carrello" class="img2" /> <!--var jinja con tot preferiti--></a>
+        <a href="{{url_for('vis_carrello')}}" class="link"><img src="{{url_for('static', filename='cart in corso.png')}}" alt="carrello" class="img2" /> <!--var jinja con tot preferiti--></a>
         <a href="{{url_for('accesso')}}" class="link">LOGIN</a>
         <a href="{{url_for('pag_registrazione')}}" class="link">+ SIGN UP</a>
     </header>
 
     <h2 class="header_L1">CORSI DISPONIBILI</h2>
     <div class="vetrina">
-        <!--cambiare da lista a div per disporre gli elementi al meglio-->
-        {% for cors in corso_singolo %}
-        <div class="prodotto">
-            <div class="tit_prod"><strong>{{ cors[1] }}</strong></div>
-            <div class="prez_prod"><p>PREZZO: </p><strong>{{ cors[3] }} </strong></div>
-            <div class="mod_prd"><p>MODALITA': </p>{{ cors[2] }}</div>
-            <div class="quanti"><p>DISPONIBILITA': </p>{{ cors[4] }}</div>
-            <div class="descr"><p>DESCRRIZIONE: </p>{{ cors[5] }}</div>
-            <img src="{{ cors[6] }}" class="immag" />
-            <a href="{{url_for('panoramica', id_corso=cors[0])}}">DETTAGLI</a>
+        <button id="indietro"><img src="{{url_for('static', filename='precedente.png')}}"/> /></button>
+        <div class="vetrina_figlio">
+            {% for cors in corso_singolo %}
+            <div class="prodotto">
+
+                <!--<div class="prez_prod"><p>PREZZO: </p><strong>{{ cors[3] }} </strong></div>
+                <div class="mod_prd"><p>MODALITA': </p>{{ cors[2] }}</div>
+                <div class="quanti"><p>DISPONIBILITA': </p>{{ cors[4] }}</div>
+                <div class="descr"><p>DESCRRIZIONE: </p>{{ cors[5] }}</div>-->
+
+                <a href="{{url_for('panoramica', id_corso=cors[0])}}"><img src="{{ cors[6] }}" class="immag" /></a>
+                <div class="tit_prod"><strong>{{ cors[1] }}</strong></div>
+            </div>
+            {% endfor %}
         </div>
-        {% endfor %}
+        <button id="avanti"><img src="{{url_for('static', filename='prossimo.png')}}"/> /></button>
+            
+        
         
 
     </div>

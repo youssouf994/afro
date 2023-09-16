@@ -177,12 +177,17 @@ def carta():
 @app.route('/')
 def index():
     """Renders a sample page."""
-    return render_template('index.html')
+    corsi=visualizza_tutti_corsi()
+    return render_template('index.html', corso_singolo=corsi)
 
 
 @app.route('/reg')
 def pag_registrazione():
     return render_template('registrazione.html')
+
+@app.route('/log')
+def login():
+    return render_template('login.html')
 
 
 
