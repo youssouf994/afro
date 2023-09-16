@@ -284,7 +284,7 @@ def panoramica(id_corso):
     return render_template('pano.html', corso=corso)
 
 
-@app.route('/carrello2', methods=['POST', 'GET'])
+@app.route('/carrello2', methods=['POST', 'GET']) 
 def vis_carrello():
     if 'id_utente' not in globals():
         msg="Prima effettuare il login"
