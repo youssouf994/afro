@@ -48,6 +48,9 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="templates\registrazione.html" />
+    <Content Include="templates\stream.html">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="TextFile1.txt" />
   </ItemGroup>
   <ItemGroup>

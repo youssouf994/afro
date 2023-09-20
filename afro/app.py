@@ -1,5 +1,6 @@
 from flask import Flask
-from flask import render_template, redirect, request, url_for, g, session
+from flask import render_template, redirect, request, url_for, g, session, flash
+from functools import wraps
 import bcrypt
 import sqlite3
 import secrets
@@ -7,6 +8,8 @@ import secrets
 
 app = Flask(__name__)
 app.secret_key='super_secret_key'
+
+
 global id_corso_carrello
 global id_utente
 
@@ -156,6 +159,17 @@ usa la stringa sopra se usi un server http diverso da flask
 #---------------------------------------\/------------------------------------
 #-----------------------------------------------------------------------------|
 
+def login_required(view_func):
+    @wraps(view_func)
+    def wrapped_view(*args, **kwargs):
+        if 'id_utenti' in session:
+            return view_func(*args, **kwargs)
+        else:
+            return redirect(url_for('no'))
+    return wrapped_view
+
+
+
 @app.route('/no', methods=['POST', 'GET'])
 def no():
     return render_template('no.html')
@@ -188,6 +202,11 @@ def pag_registrazione():
 @app.route('/log')
 def login():
     return render_template('login.html')
+
+@app.route('/stream', methods=['POST', 'GET'])
+
+def stre():
+    return render_template("stream.html")
 
 
 
@@ -270,6 +289,7 @@ def accesso():
 
 
 @app.route('/land', methods=['POST', 'GET'])
+@login_required
 def landing():
     corsi=visualizza_tutti_corsi()
 
@@ -285,6 +305,7 @@ def panoramica(id_corso):
 
 
 @app.route('/carrello2', methods=['POST', 'GET']) 
+@login_required
 def vis_carrello():
     if 'id_utente' not in globals():
         msg="Prima effettuare il login"
@@ -305,12 +326,14 @@ def vis_carrello():
 
 
 @app.route('/carrello', methods=['POST', 'GET'])
+@login_required
 def carrello():
     global id_corso_carrello
     global id_utente
     
     if request.method=='POST':
         quant=request.form['quanti']
+        
 
 
     if 'id_utenti' in session and id_corso_carrello != None:
@@ -332,8 +355,9 @@ def carrello():
             dati.commit()
 
         except Exception as e:
-            print("Errore durante l'inserimento nel carrello:", str(e))
             dati.rollback()
+            return render_template("no.html")
+            
         finally:
             dati.close()
 
@@ -351,6 +375,7 @@ def carrello():
 
 
 @app.route('/nuovo', methods=['POST', 'GET'])
+@login_required
 def nuovo_corso():
     if request.method=='POST':
         tabe="service"
@@ -374,6 +399,7 @@ def nuovo_corso():
 
 
 @app.route('/pano_creators', methods=['POST', 'GET'])
+@login_required
 def visualizza_creators():
     corsi=visualizza_tutti_corsi()
     return render_template('dash_creators.html', corsi=corsi)
@@ -445,6 +471,7 @@ def elimina():
 
 
 @app.route('/creators', methods=['POST', 'GET'])
+@login_required
 def dashboard_creators():
     if request.method=='POST':
         return render_template('dash_creators.html')

@@ -89,16 +89,21 @@
 
         });
     </script>
+    
 
 </head>
 
 <body class="body">
+
     
+
+
+
     <header class="banner">
         <a href="{{url_for('index')}}" class="link"><img src="{{url_for('static', filename='logo intero.png')}}" alt="Logo1" class="img" /></a>
-        <a href="{{url_for('landing')}}" class="link">CORSI</a>
-        <!--FARE FUNZIONE E VALORE IN DB PER PREFERITI--><a href="{{url_for('landing')}}" class="link"><img src="{{url_for('static', filename='preferito selezionato.png')}}" alt="preferiti" class="img2" /></a>
-        <a href="{{url_for('vis_carrello')}}" class="link"><img src="{{url_for('static', filename='cart in corso.png')}}" alt="carrello" class="img2" /> <!--var jinja con tot preferiti--></a>
+        <!--<a href="{{url_for('landing')}}" class="link">CORSI</a>
+        FARE FUNZIONE E VALORE IN DB PER PREFERITI<a href="{{url_for('landing')}}" class="link"><img src="{{url_for('static', filename='preferito selezionato.png')}}" alt="preferiti" class="img2" /></a>
+        <a href="{{url_for('vis_carrello')}}" class="link"><img src="{{url_for('static', filename='cart in corso.png')}}" alt="carrello" class="img2" /> <!--var jinja con tot preferiti</a>-->        
         <p id="comparsa" class="link">O LOGIN</p>
         <p id="comparsa2" class="link">+ SIGN UP</p>
     </header>
@@ -171,6 +176,8 @@
         </div>
     </div>
 
+
+
     <div class="stacco">
         <h2 class="header_L1">CORSI</h2>
         <div class="vetrina">
@@ -189,7 +196,7 @@
                 </div>
                 {% endfor %}
             </div>
-            <img src="{{url_for('static', filename='prossimo.png')}}" class="avanti"/>
+            <img src="{{url_for('static', filename='prossimo.png')}}" class="avanti" />
         </div>
     </div>
 </body>
