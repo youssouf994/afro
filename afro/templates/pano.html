@@ -6,83 +6,8 @@
     <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='templates.css') }}" />
     <meta http-equiv="refresh" content="#">
 
-    <script>
-        $(document).ready(function () {
-            const panoramicaContainer = $(".panoramica-container");
-            const panoramica = $(".panoramica");
-            const prevButton = $(".indietro");
-            const nextButton = $(".avanti");
-
-            const itemWidth = 300; // Larghezza di un elemento "prodotto"
-            const itemsPerPage = 4; // Numero di elementi da mostrare per pagina
-            let currentPage = 1;
-
-            function showPage(page) {
-                const startIndex = (page - 1) * itemsPerPage;
-                const endIndex = startIndex + itemsPerPage;
-
-                const prodotti = $(".prodotto");
-
-                prodotti.each(function (index, element) {
-                    if (index >= startIndex && index < endIndex) {
-                        $(element).show();
-                    } else {
-                        $(element).hide();
-                    }
-                });
-            }
-
-            prevButton.on("click", function () {
-                if (currentPage > 1) {
-                    currentPage--;
-                    showPage(currentPage);
-                }
-            });
-
-            nextButton.on("click", function () {
-                const prodotti = $(".prodotto");
-                const totalItems = prodotti.length;
-                const totalPages = Math.ceil(totalItems / itemsPerPage);
-
-                if (currentPage < totalPages) {
-                    currentPage++;
-                    showPage(currentPage);
-                }
-            });
-
-            showPage(currentPage);
-        });
-
-    </script>
-
-    <script>
-        $(document).ready(function () {
-            $(".login-link").on("click", function () {
-                $(this).siblings(".popup").show();
-            });
-
-            $("#comparsa4").on("click", function () {
-                $("#login_div4").show();
-            });
-
-            $(".close-div").on("click", function () {
-                $(this).closest(".popup").hide();
-            });
-
-            $(document).on("click", function (event) {
-                if (!$(event.target).closest(".login-link, .popup").length) {
-                    $(".popup").hide();
-                }
-            });
-
-            $(document).on("click", function (event) {
-                if (!$(event.target).closest("#comparsa4, #login_div4").length) {
-                    $("#login_div4").hide();
-                }
-            });
-
-        });
-    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{url_for('static', filename='script.js')}}"></script>
 </head>
 <body class="body">
     <header class="banner">
@@ -90,13 +15,13 @@
         <a href="{{url_for('landing')}}" class="link">CORSI</a>
         <!--FARE FUNZIONE E VALORE IN DB PER PREFERITI--><a href="{{url_for('landing')}}" class="link"><img src="{{url_for('static', filename='preferito selezionato.png')}}" alt="preferiti" class="img2" /></a>
         <a href="{{url_for('vis_carrello')}}" class="link"><img src="{{url_for('static', filename='cart in corso.png')}}" alt="carrello" class="img2" /> <!--var jinja con tot preferiti--></a>
-        <p id="comparsa4" class="link">O LOGIN</p>
-        <p id="comparsa4" class="link">+ SIGN UP</p>
+        <p id="comparsa" class="link">O LOGIN</p>
+        <p id="comparsa2" class="link">+ SIGN UP</p>
     </header>
 
     <h2 style="color:black;">{{corso[1]}}</h2>
 
-    <div id="login_div4" class="popup">
+    <div id="login_div" class="popup">
         <div class="log">
             <p>{{msg}}</p>
             <form action="{{ url_for('accesso') }}" method="post" class="login">
@@ -105,11 +30,58 @@
                 <label for="login2" class="etichette"><b>Password</b><input type="password" name="pass" class="credenziali1" maxlength="255"></label><br>
                 <button type="submit">Login</button><br />
             </form>
-            <button class="close-div">Chiudi</button>
+            <button id="chiudi_div">Chiudi</button>
         </div>
     </div>
 
-    <div>
+    <div id="login_div2" class="popup">
+        <div class="log">
+            <form method="post" class="data_view" action="{{ url_for('crea_utente') }}">
+                <h2 class="titoli">Registrazione Cliente</h2>
+
+                <div class="colore">
+                    <label>Nome</label>
+                    <input type="text" name="nome" required>
+                </div>
+
+                <div class="colore">
+                    <label>Cognome</label>
+                    <input type="text" name="cognome" required>
+                </div>
+
+                <div class="colore">
+                    <label>Telefono</label>
+                    <input type="text" name="tel" required>
+                </div>
+
+                <div class="colore">
+                    <label>Password</label>
+                    <input type="password" name="pass" required>
+                </div>
+
+                <div class="colore">
+                    <label>Mail</label>
+                    <input type="email" name="mail" required>
+                </div>
+
+                <div class="colore">
+                    <label>Citta'</label>
+                    <input type="text" name="citt" required>
+                </div>
+
+
+
+                <div>
+                    <button class="bottone_generic" type="submit">Avvia<br>registrazione</button>
+                    <button class="bottone_generic" type="reset">Cancella</button>
+                </div>
+
+            </form>
+            <button id="chiudi_div2">Chiudi</button>
+        </div>
+    </div>
+
+    <div class="img_pano">
         <img src="{{ corso[6]}}" class="immag" />
         <p>{{ corso[5] }}</p>
     </div>

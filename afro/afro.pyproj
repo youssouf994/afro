@@ -31,6 +31,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="requirements.txt" />
+    <Content Include="static\script.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="static\templates.css" />
     <Content Include="static\WhatsApp Image 2023-06-29 at 8.48.40 PM.jpeg" />
     <Content Include="templates\carrello.html">
