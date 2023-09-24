@@ -22,7 +22,8 @@ CREATE TABLE service
     prezzo DECIMAL(10, 2),
     stock INT,
     descrizione TEXT, 
-    img TEXT
+    img TEXT,
+    link TEXT
 );
 
 CREATE TABLE carrello (
@@ -35,21 +36,21 @@ CREATE TABLE carrello (
 );
 
 
-INSERT INTO service (nome, modalit, prezzo, stock, descrizione, img)
-VALUES ('Prodotto 1', 'in presenza', '50.00', 49, 'Descrizione lalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalala', 'https://raw.githubusercontent.com/youssouf994/afro/master/afro/static/1.webp');
+INSERT INTO service (nome, modalit, prezzo, stock, descrizione, img, link)
+VALUES ('Prodotto 1', 'in presenza', '50.00', 49, 'Descrizione lalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalala', 'https://raw.githubusercontent.com/youssouf994/afro/master/afro/static/1.webp', 'video.mp4');
 
-INSERT INTO service (nome, modalit, prezzo, stock, descrizione, img)
-VALUES ('Prodotto 2', 'in presenza', '50.00', 49, 'Descrizione lalalalalalalalalalalalalalalalalalalalalalalalalalalalalaladewr1jfberjf ewdiofnew dfnnew cdokknf dkofnwew  alala', 'https://raw.githubusercontent.com/youssouf994/afro/master/afro/static/2.webp');
+INSERT INTO service (nome, modalit, prezzo, stock, descrizione, img, link)
+VALUES ('Prodotto 2', 'in presenza', '50.00', 49, 'Descrizione lalalalalalalalalalalalalalalalalalalalalalalalalalalalalaladewr1jfberjf ewdiofnew dfnnew cdokknf dkofnwew  alala', 'https://raw.githubusercontent.com/youssouf994/afro/master/afro/static/2.webp', 'video.mp4');
 
-INSERT INTO service (nome, modalit, prezzo, stock, descrizione, img)
-VALUES ('Prodotto 3', 'in presenza', '50.00', 49, 'Descrizione lalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalala', 'https://raw.githubusercontent.com/youssouf994/afro/master/afro/static/3.webp');
+INSERT INTO service (nome, modalit, prezzo, stock, descrizione, img, link)
+VALUES ('Prodotto 3', 'in presenza', '50.00', 49, 'Descrizione lalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalala', 'https://raw.githubusercontent.com/youssouf994/afro/master/afro/static/3.webp', 'video.mp4');
 
-INSERT INTO service (nome, modalit, prezzo, stock, descrizione, img)
-VALUES ('Prodotto 4', 'in presenza', '50.00', 49, 'Descrizione lalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalala', 'https://raw.githubusercontent.com/youssouf994/afro/master/afro/static/4.webp');
+INSERT INTO service (nome, modalit, prezzo, stock, descrizione, img, link)
+VALUES ('Prodotto 4', 'in presenza', '50.00', 49, 'Descrizione lalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalala', 'https://raw.githubusercontent.com/youssouf994/afro/master/afro/static/4.webp', 'video.mp4');
 
-INSERT INTO service (nome, modalit, prezzo, stock, descrizione, img)
-VALUES ('Prodotto 5', 'in presenza', '50.00', 49, 'Descrizione lalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalala', 'https://raw.githubusercontent.com/youssouf994/afro/master/afro/static/5.webp');
+INSERT INTO service (nome, modalit, prezzo, stock, descrizione, img, link)
+VALUES ('Prodotto 5', 'in presenza', '50.00', 49, 'Descrizione lalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalala', 'https://raw.githubusercontent.com/youssouf994/afro/master/afro/static/5.webp', 'video.mp4');
 
-INSERT INTO service (nome, modalit, prezzo, stock, descrizione, img)
-VALUES ('Prodotto 6', 'in presenza', '50.00', 49, 'Descrizione lalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalala', 'https://photos.google.com/photo/AF1QipM9zwCs75RFakfhXqZjs7XatgujwWvdzKj0L71z');
+INSERT INTO service (nome, modalit, prezzo, stock, descrizione, img, link)
+VALUES ('Prodotto 6', 'in presenza', '50.00', 49, 'Descrizione lalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalala', 'https://photos.google.com/photo/AF1QipM9zwCs75RFakfhXqZjs7XatgujwWvdzKj0L71z', 'video.mp4');
     

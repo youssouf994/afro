@@ -1,10 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video Lezione</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css">
+    <title>HOLISTIC CENTER</title>
+    <!--<link rel="icon" href="{{url_for('static', filename='#')}}" type="image/x-icon" />CREARE APP ROUTE APPOSITA-->
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='templates.css') }}" />
+    <meta http-equiv="refresh" content="#">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script src="{{url_for('static', filename='script.js')}}"></script>
 </head>
 <body>
     <div id="login_div" class="popup">
@@ -66,13 +72,13 @@
             <button id="chiudi_div2">Chiudi</button>
         </div>
     </div>
-    <div class="container mt-5">
+    <div class="padre_video">
         <h1>Video Lezione</h1>
         <hr>
         <div class="row">
             <div class="col-md-8 offset-md-2">
                 <video controls width="100%">
-                    <source src="{{ url_for('static', filename='video.mp4') }}" type="video/mp4">
+                    <source src="{{ url_for('static', filename=link) }}" type="video/mp4">
                     Il tuo browser non supporta la riproduzione video.
                 </video>
             </div>

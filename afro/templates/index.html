@@ -1,15 +1,16 @@
 ﻿<!DOCTYPE html>
 
 <head>
+    <meta charset="UTF-8">
     <title>HOLISTIC CENTER</title>
     <!--<link rel="icon" href="{{url_for('static', filename='#')}}" type="image/x-icon" />CREARE APP ROUTE APPOSITA-->
     <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='templates.css') }}" />
     <meta http-equiv="refresh" content="#">
 
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-        <script src="{{url_for('static', filename='script.js')}}"></script>
-    
+    <script src="{{url_for('static', filename='script.js')}}"></script>
+
 
 </head>
 
@@ -50,7 +51,7 @@
     </div>
 
     <div id="login_div2" class="popup">
-        <div class="log">
+        <div class="log2">
             <form method="post" class="data_view" action="{{ url_for('crea_utente') }}">
                 <h2 class="titoli">Registrazione Cliente</h2>
 

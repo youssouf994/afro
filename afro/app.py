@@ -206,7 +206,19 @@ def login():
 @app.route('/stream', methods=['POST', 'GET'])
 
 def stre():
-    return render_template("stream.html")
+    video = request.args.get('id_video')
+
+    db_ram=db_utenti()
+    cursore=db_ram.cursor()
+
+    cursore.execute('SELECT * FROM service WHERE link=?', (video,))
+    link=cursore.fetchone()
+
+    link=link[7]
+
+    db_ram.close()
+
+    return render_template("stream.html", link=link)
 
 
 

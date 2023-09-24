@@ -159,19 +159,35 @@
     z-index:9999;
 }
 
-.log
-{
-    position:relative;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
-    background-color:aliceblue;
-    
-    border-radius:5%;
-    box-shadow:0px 0px 10px rgba(0, 0, 0, 0.3);
-    z-index:9999;
-    width:90%;
-    height:85%;
+.log {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background-color: aliceblue;
+    border-radius: 5%;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    width: 35%;
+    height: 35%;
+    border-style: solid;
+    border-color: rgb(115, 165, 128);
+    border-width: 5px;
+}
+
+.log2 {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background-color: aliceblue;
+    border-radius: 5%;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    width: 33.3%;
+    height: 55%;
+    display: block;
+    border-style: solid;
+    border-color: rgb(115, 165, 128);
+    border-width:5px;
 }
 
 .img_pano
@@ -187,16 +203,16 @@
     position:relative;
     margin: 0 auto;
     z-index: 9999;
-    width: 90%;
-    height: 85%;
+    width: 35%;
+    height: 35%;
 }
 
 
 #login_div2
 {
-    position:fixed;
+    position:relative;
     margin:0 auto;    
     z-index:9999;
-    width:20%;
-    height:10%;
+    width:33.3%;
+    height:55%;
 }
